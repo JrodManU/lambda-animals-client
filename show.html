@@ -14,15 +14,13 @@
 
   <script type="text/javascript">
     let searchParams = new URLSearchParams(window.location.search)
-    console.log("https://wcgte8bda7.execute-api.us-east-2.amazonaws.com/development/animals/" + encodeURIComponent(searchParams.get("AnimalName")));
     let request = new XMLHttpRequest();
     request.open("GET", "https://wcgte8bda7.execute-api.us-east-2.amazonaws.com/development/animals/" + encodeURIComponent(searchParams.get("AnimalName")));
 
     request.onload = () => {
       let animal = JSON.parse(request.response).Item;
-
       $("#animalContainer").append(
-        "<p>Name:" +
+        "<p>Name: " +
           animal.AnimalName +
         "</p>" +
         "<p>Population: " +
