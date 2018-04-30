@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  <div id="animalList">
+
+  </div>
+
+  <script type="text/javascript">
+    let request = new XMLHttpRequest();
+    request.open("GET", "https://wcgte8bda7.execute-api.us-east-2.amazonaws.com/development/animals");
+    request.onload = () => {
+      let animals = JSON.parse(request.response);
+
+      for(let i = 0; i < animals.length; i++) {
+        $("#animalList").append(
+          "<a href='show.html?AnimalName=" + encodeURIComponent(animals[i].AnimalName) + "'>" +
+            animals[i].AnimalName +
+          "</a>" +
+          "<br>"
+        );
+      }
+    }
+    request.send();
+  </script>
+</body>
+</html>
