@@ -11,11 +11,19 @@
   <div id="animalContainer">
 
   </div>
+  <a href="edit.html" id="editLink">edit</a>
+  <a href="index.html" id="deleteLink">delete</a>
 
   <script type="text/javascript">
     let searchParams = new URLSearchParams(window.location.search)
+    let animalName = searchParams.get("AnimalName");
+    let animalURL = "https://wcgte8bda7.execute-api.us-east-2.amazonaws.com/development/animals/" + animalName;
+    $("#editLink").attr("href", "edit.html?AnimalName=" + animalName);
+
+    /////////////////////////////////////////////////////////////
+
     let request = new XMLHttpRequest();
-    request.open("GET", "https://wcgte8bda7.execute-api.us-east-2.amazonaws.com/development/animals/" + encodeURIComponent(searchParams.get("AnimalName")));
+    request.open("GET", animalURL);
 
     request.onload = () => {
       let animal = JSON.parse(request.response).Item;
@@ -29,6 +37,18 @@
       );
     }
     request.send();
+
+    ///////////////////////////////////////////////////////////
+
+    $("#deleteLink").on("click", (event) => {
+      let request = new XMLHttpRequest();
+      request.open("DELETE", animalURL);
+      request.send();
+      request.onload = () => {
+        window.location.href = "index.html";
+      }
+      event.preventDefault();
+    });
   </script>
 </body>
 </html>

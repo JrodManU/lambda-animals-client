@@ -22,11 +22,14 @@
 
   <script type="text/javascript">
     $(function() {
-      $("#newAnimalForm").submit(function(){
+      $("#newAnimalForm").submit(function(event){
         let request = new XMLHttpRequest();
-        request.open("POST", "https://wcgte8bda7.execute-api.us-east-2.amazonaws.com/development/animals?" + "AnimalName=" + encodeURIComponent($("#AnimalName").val()) + "&Population=" + encodeURIComponent($("#Population").val()));
+        request.open("POST", "https://wcgte8bda7.execute-api.us-east-2.amazonaws.com/development/animals?" + "AnimalName=" + encodeURI($("#AnimalName").val()) + "&Population=" + encodeURIComponent($("#Population").val()));
         request.send();
-        e.preventDefault();
+        request.onload = () => {
+          window.location.href = "index.html";
+        }
+        event.preventDefault();
       });
     });
   </script>
